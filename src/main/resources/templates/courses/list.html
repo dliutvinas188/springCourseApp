@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Courses</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: sidebar}"></div>
+
+<main>
+    <h1>CourseApp</h1>
+    <h2>Courses</h2>
+
+    <p>
+        <a th:href="@{/courses/new}" class="create-btn">Create new course</a>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${courses}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.title}"></td>
+            <td th:text="${c.instructor}"></td>
+            <td>
+                <a th:href="@{/courses/{id}/edit(id=${c.id})}">Edit</a>
+                <form th:action="@{/courses/{id}/delete(id=${c.id})}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+</body>
+</html>

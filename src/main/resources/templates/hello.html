@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Hello Page</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header :: sidebar"></div>
+
+<main>
+    <h1>CourseApp</h1>
+    <p th:text="${message}"></p>
+</main>
+
+</body>
+</html>

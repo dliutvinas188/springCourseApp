@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title th:text="${mode == 'create' ? 'Create Course' : 'Edit Course'}"></title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: sidebar}"></div>
+
+<main>
+  <h1>CourseApp</h1>
+  <h2 th:text="${mode == 'create' ? 'Create Course' : 'Edit Course'}"></h2>
+
+  <form th:action="${mode == 'create'} ? @{/courses} : @{/courses/{id}(id=${course.id})}"
+        method="post"
+        th:object="${course}">
+
+    <div>
+      <label for="title">Title</label>
+      <input id="title" type="text" th:field="*{title}" required>
+    </div>
+
+    <div>
+      <label for="instructor">Instructor</label>
+      <input id="instructor" type="text" th:field="*{instructor}" required>
+    </div>
+
+    <div>
+      <button type="submit" th:text="${mode == 'create' ? 'Create' : 'Save'}"></button>
+      <a th:href="@{/courses}">Cancel</a>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>
