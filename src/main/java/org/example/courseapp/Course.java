@@ -4,43 +4,53 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
+    @NotBlank(message = "Title is required")
+    @Size(min = 2, max = 50, message = "Title must be between 2 and 50 characters")
     private String title;
+
+    @NotBlank(message = "Instructor is required")
+    @Size(min = 2, max = 50, message = "Instructor name must be between 2 and 50 characters")
     private String instructor;
 
-    //Empty Constructor
-    public Course(){}
+    public Course() {
+    }
 
-    //Constructor with title and instructor
-    public Course(String title, String instructor){
+    public Course(String title, String instructor) {
         this.title = title;
         this.instructor = instructor;
     }
 
-    //Getters and setter for variables
-    public Long getId(){
-        return Id;
+    public Long getId() {
+        return id;
     }
 
-    public String getTitle(){
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
         return title;
     }
-    public String getInstructor(){
+
+    public String getInstructor() {
         return instructor;
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.title = title;
     }
+
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
-
 }
