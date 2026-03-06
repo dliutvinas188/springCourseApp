@@ -33,6 +33,10 @@ public class CourseWebController {
     public String create(@Valid @ModelAttribute("course") Course course,
                          BindingResult result,
                          Model model) {
+        if (repo.findByCourseCode(course.getCourseCode()).isPresent()) {
+            result.rejectValue("courseCode", "error.course", "Course code already exists");
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("mode", "create");
             return "courses/form";
@@ -57,6 +61,12 @@ public class CourseWebController {
                          @Valid @ModelAttribute("course") Course updated,
                          BindingResult result,
                          Model model) {
+        repo.findByCourseCode(updated.getCourseCode()).ifPresent(existing -> {
+            if (!existing.getId().equals(id)) {
+                result.rejectValue("courseCode", "error.course", "Course code already exists");
+            }
+        });
+
         if (result.hasErrors()) {
             updated.setId(id);
             model.addAttribute("mode", "edit");
@@ -68,6 +78,8 @@ public class CourseWebController {
 
         course.setTitle(updated.getTitle());
         course.setInstructor(updated.getInstructor());
+        course.setCourseCode(updated.getCourseCode());
+        course.setDescription(updated.getDescription());
         repo.save(course);
 
         return "redirect:/courses";

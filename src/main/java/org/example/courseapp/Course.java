@@ -1,9 +1,6 @@
 package org.example.courseapp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -21,13 +18,22 @@ public class Course {
     @NotBlank(message = "Instructor is required")
     @Size(min = 2, max = 50, message = "Instructor name must be between 2 and 50 characters")
     private String instructor;
+    
+    @NotBlank(message = "Course code is required")
+    @Column(unique = true)
+    private String courseCode;
+
+    @Size(max = 500, message = "Description cannot exceed 500 characters")
+    private String description;
 
     public Course() {
     }
 
-    public Course(String title, String instructor) {
+    public Course(String title, String instructor, String courseCode, String description) {
         this.title = title;
         this.instructor = instructor;
+        this.courseCode = courseCode;
+        this.description = description;
     }
 
     public Long getId() {
@@ -52,5 +58,21 @@ public class Course {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
