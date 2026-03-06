@@ -22,7 +22,8 @@ public class CourseWebController {
 
     @GetMapping
     public String list(Model model) {
-        List<Course> courses = StreamSupport.stream(repo.findAll().spliterator(), false)
+        Iterable<Course> iterable = repo.findAll();
+        List<Course> courses = StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
         return "courses/list";
