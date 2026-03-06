@@ -246,3 +246,43 @@ td form {
 .cancel-link:hover {
     color: #333;
 }
+
+/* List page header with search */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0;
+}
+
+.search-input {
+    padding: 10px 12px;
+    border: 1px solid #cfd8e3;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fafbfd;
+    min-width: 250px;
+}
+
+.search-btn {
+    background-color: #0077cc;
+    color: white;
+}
+
+.clear-btn {
+    color: #666;
+    font-weight: 500;
+}
+
+.clear-btn:hover {
+    color: #333;
+}

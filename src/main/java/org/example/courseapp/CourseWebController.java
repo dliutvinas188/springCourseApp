@@ -21,11 +21,17 @@ public class CourseWebController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        Iterable<Course> iterable = repo.findAll();
+    public String list(@RequestParam(name = "search", required = false) String search, Model model) {
+        Iterable<Course> iterable;
+        if (search != null && !search.trim().isEmpty()) {
+            iterable = repo.findByTitleContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(search, search);
+        } else {
+            iterable = repo.findAll();
+        }
         List<Course> courses = StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
+        model.addAttribute("search", search);
         return "courses/list";
     }
 

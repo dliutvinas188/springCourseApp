@@ -12,9 +12,15 @@
     <h1>CourseApp</h1>
     <h2>Courses</h2>
 
-    <p>
+    <div class="list-header">
         <a th:href="@{/courses/new}" class="create-btn">Create new course</a>
-    </p>
+        
+        <form th:action="@{/courses}" method="get" class="search-form">
+            <input type="text" name="search" th:value="${search}" placeholder="Search by title or code..." class="search-input">
+            <button type="submit" class="search-btn">Search</button>
+            <a th:if="${search != null and !search.isEmpty()}" th:href="@{/courses}" class="clear-btn">Clear</a>
+        </form>
+    </div>
 
     <table>
         <thead>
