@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: sidebar}"></div>
+
+<main>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, <span th:text="${admin.username}"></span>!</p>
+    
+    <nav>
+        <ul>
+            <li><a th:href="@{/courses}">Manage Courses</a></li>
+            <li><a th:href="@{/admin/logout}">Logout</a></li>
+        </ul>
+    </nav>
+</main>
+
+</body>
+</html>
