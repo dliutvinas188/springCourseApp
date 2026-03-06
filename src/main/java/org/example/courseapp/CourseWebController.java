@@ -7,8 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Controller
 @RequestMapping("/courses")
@@ -22,14 +20,12 @@ public class CourseWebController {
 
     @GetMapping
     public String list(@RequestParam(name = "search", required = false) String search, Model model) {
-        Iterable<Course> iterable;
+        List<Course> courses;
         if (search != null && !search.trim().isEmpty()) {
-            iterable = repo.findByTitleContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(search, search);
+            courses = repo.searchByKeyword(search);
         } else {
-            iterable = repo.findAll();
+            courses = repo.findAll();
         }
-        List<Course> courses = StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
         model.addAttribute("courses", courses);
         model.addAttribute("search", search);
         return "courses/list";
