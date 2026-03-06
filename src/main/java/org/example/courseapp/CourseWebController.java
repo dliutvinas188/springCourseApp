@@ -6,6 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Controller
 @RequestMapping("/courses")
 public class CourseWebController {
@@ -18,7 +22,9 @@ public class CourseWebController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("courses", repo.findAll());
+        List<Course> courses = StreamSupport.stream(repo.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        model.addAttribute("courses", courses);
         return "courses/list";
     }
 
